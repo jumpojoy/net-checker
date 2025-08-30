@@ -1,0 +1,43 @@
+- name: Ensure ethtool is installed
+  package:
+    name: ethtool
+    state: present
+    update_cache: true
+  become: true
+
+- name: Get list of network interfaces
+  command: ip link show
+  register: ip_link_output
+  changed_when: false
+
+- name: Create output directory on control node
+  file:
+    path: "{{ output_dir }}/{{ inventory_hostname }}/{{ phase }}/interfaces/{{ item }}"
+    state: directory
+    mode: '0755'
+  delegate_to: localhost
+  with_items: "{{ ansible_interfaces }}"
+
+- name: Collect ethtool statistics for each interface
+  shell: |
+      for cmd in "ethtool -S {{ item }}" \
+        "ethtool -l {{ item }}" \
+        "ethtool -k {{ item }}" \
+        "ifconfig {{ item }}" \
+        "ip -d link show {{ item }}"; do
+        echo "=== start $cmd ==="
+        eval "$cmd"
+        echo "=== end $cmd ==="
+      done
+  register: interface_stats
+  changed_when: false
+  ignore_errors: true
+  with_items: "{{ ansible_interfaces }}"
+
+- name: Copy ethtool output
+  copy:
+    content: |
+      {{ item.stdout }}
+    dest: "{{ output_dir }}/{{ inventory_hostname }}/{{ phase }}/interfaces/{{ item.item }}.txt"
+  loop: "{{ interface_stats.results }}"
+  delegate_to: localhost

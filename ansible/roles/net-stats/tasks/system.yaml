@@ -1,0 +1,25 @@
+- name: Create output directory on control node
+  file:
+    path: "{{ output_dir }}/{{ inventory_hostname }}/{{ phase }}"
+    state: directory
+    mode: '0755'
+  delegate_to: localhost
+
+- name: Collect sysctl statistics
+  shell: |
+      for cmd in "sysctl -a"; do
+        echo "=== start $cmd ==="
+        eval "$cmd"
+        echo "=== end $cmd ==="
+      done
+  register: sysctl_stats
+  changed_when: false
+  ignore_errors: true
+
+- name: Save sysctl statistics to file on control node
+  copy:
+    content: |
+      {{ item.stdout }}
+    dest: "{{ output_dir }}/{{ inventory_hostname }}/{{ phase }}/sysctl.txt"
+  loop: "{{ interface_stats.results }}"
+  delegate_to: localhost

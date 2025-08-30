@@ -1,0 +1,55 @@
+output_dir: "/tmp/net_checker_reports/"
+# List of targets
+iperf_targets: []
+iperf_tasks:
+  - name: tcp_p1
+    command: iperf3 -t30 -P1
+  - name: tcp_p15
+    command: iperf3 -t30 -P15
+  - name: tcp_p30
+    command: iperf3 -t30 -P30
+  - name: tcp_p1_M1400
+    command: iperf3 -t30 -P1 -M1400
+  - name: tcp_p15_M1400
+    command: iperf3 -t30 -P15 -M1400
+  - name: tcp_p30_M1400
+    command: iperf3 -t30 -P30 -M1400
+
+  - name: udp_p1_b0
+    command: iperf3 -t30 -P1 -u -b0
+  - name: udp_p15_b0
+    command: iperf3 -t30 -P15 -u -b0
+  - name: udp_p30_b0
+    command: iperf3 -t30 -P30 -u -b0
+  - name: udp_p1_b0_l1400
+    command: iperf3 -t30 -P1 -u -b0 -l1400
+  - name: udp_p15_b0_l1400
+    command: iperf3 -t30 -P15 -u -b0 -l1400
+  - name: udp_p30_b0_l1400
+    command: iperf3 -t30 -P30 -u -b0 -l1400
+  - name: udp_p1_b0_l700
+    command: iperf3 -t30 -P1 -u -b0 -l700
+  - name: udp_p15_b0_l700
+    command: iperf3 -t30 -P15 -u -b0 -l700
+  - name: udp_p30_b0_l700
+    command: iperf3 -t30 -P30 -u -b0 -l700
+
+
+  - name: udp_p1_b500M
+    command: iperf3 -t30 -P1 -u -b500M
+  - name: udp_p15_b500M
+    command: iperf3 -t30 -P15 -u -b500M
+  - name: udp_p30_b500M
+    command: iperf3 -t30 -P30 -u -b500M
+  - name: udp_p1_b500M_l1400
+    command: iperf3 -t30 -P1 -u -b500M -l1400
+  - name: udp_p15_b500M_l1400
+    command: iperf3 -t30 -P15 -u -b500M -l1400
+  - name: udp_p30_b500M_l1400
+    command: iperf3 -t30 -P30 -u -b500M -l1400
+  - name: udp_p1_b500M_l700
+    command: iperf3 -t30 -P1 -u -b500M -l700
+  - name: udp_p15_b500M_l700
+    command: iperf3 -t30 -P15 -u -b500M -l700
+  - name: udp_p30_b500M_l700
+    command: iperf3 -t30 -P30 -u -b500M -l700

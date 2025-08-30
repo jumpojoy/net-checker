@@ -1,0 +1,19 @@
+- name: install ipref3
+  package: name={{ item }} state=latest update_cache=true
+  with_items:
+    - iperf3
+  become: true
+
+- name: install iperf3 unit file for systemd
+  template:
+    dest: /etc/systemd/system/iperf3.service
+    src: iperf3.service.j2
+  become: true
+
+- name: enable and start iperf3 service
+  systemd:
+    daemon_reload: true
+    enabled: true
+    name: iperf3
+    state: started
+  become: true

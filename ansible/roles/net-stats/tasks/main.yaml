@@ -1,0 +1,7 @@
+- name: Include  interfaces tasks
+  ansible.builtin.include_tasks:
+    file: interfaces.yaml
+
+- name: Include  system tasks
+  ansible.builtin.include_tasks:
+    file: system.yaml

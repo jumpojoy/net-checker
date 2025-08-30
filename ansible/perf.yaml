@@ -1,0 +1,38 @@
+---
+- name: Gather networking stats from all before hosts
+  hosts: iperfs
+  pre_tasks:
+    - name: collect network stats before tests
+      include_role:
+        name: net-stats
+        tasks_from: main
+      vars:
+        phase: before
+
+
+- name: Start iperf
+  hosts: iperfs
+  pre_tasks:
+    - name: start iperf
+      include_role:
+        name: iperf
+        tasks_from: server
+
+- name: Start iperf tasks
+  hosts: iperfs
+  serial: 1
+  pre_tasks:
+    - name: start iperf
+      include_role:
+        name: iperf
+        tasks_from: tasks
+
+- name: Gather networking stats from all hosts after tests
+  hosts: iperfs
+  pre_tasks:
+    - name: collect network stats after tests
+      include_role:
+        name: net-stats
+        tasks_from: main
+      vars:
+        phase: after

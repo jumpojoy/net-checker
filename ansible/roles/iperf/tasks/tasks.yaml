@@ -1,0 +1,44 @@
+- name: Create output directory on control node
+  file:
+    path: "{{ output_dir }}/{{ inventory_hostname }}/iperf/"
+    state: directory
+    mode: '0755'
+  delegate_to: localhost
+
+- name: Delete content & directory
+  ansible.builtin.file:
+    state: absent
+    path: "/tmp/{{ item.0 }}"
+  loop: "{{ iperf_targets | product(iperf_tasks) | list }}"
+
+- name: Create temporary directory on target
+  ansible.builtin.file:
+    path: "/tmp/{{ item.0 }}/{{ item.1.name }}"
+    state: directory
+    mode: '0755'
+  loop: "{{ iperf_targets | product(iperf_tasks) | list }}"
+
+- name: Run iperf command and save output on target
+  ansible.builtin.shell: "{{ item.1.command }} -J -c {{ item.0 }} >> /tmp/{{ item.0 }}/{{ item.1.name }}/output.json 2>&1"
+  loop: "{{ iperf_targets | product(iperf_tasks) | list }}"
+
+- name: Create local output directory
+  ansible.builtin.file:
+    path: "{{ output_dir }}/{{ inventory_hostname }}/iperf/{{ item.0 }}"
+    state: directory
+    mode: '0755'
+  delegate_to: localhost
+  loop: "{{ iperf_targets | product(iperf_tasks) | list }}"
+
+- name: Fetch output file to localhost
+  ansible.builtin.fetch:
+    src: "/tmp/{{ item.0 }}/{{ item.1.name }}/output.json"
+    dest: "{{ output_dir }}/{{ inventory_hostname }}/iperf/{{ item.0 }}/{{ item.1.name }}.json"
+    flat: yes
+  loop: "{{ iperf_targets | product(iperf_tasks) | list }}"
+
+- name: Clean up temporary directory on target
+  ansible.builtin.file:
+    path: "/tmp/{{ item.0 }}/{{ item.1.name }}"
+    state: absent
+  loop: "{{ iperf_targets | product(iperf_tasks) | list }}"

@@ -1,0 +1,3 @@
+phase: "before"
+output_dir: "/tmp/net_checker_reports"
+timestamp: "{{ ansible_date_time.iso8601_basic_short }}"
