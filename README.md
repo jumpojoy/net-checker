@@ -58,11 +58,13 @@ pip3 install -r requirements.txt
 
 ansible-playbook -i ansible/inventory.yaml ansible/perf.yaml
 
+# Drink some coffee
+
 # Save performance tests in reports directory
 mkdir ./net_checker_reports
 mv /tmp/net_checker_reports/ ./net_checker_reports/01_default
 
-# Change some parameters, in for example add bond transmit policy.
+# Change some parameters, for example add bond transmit policy.
 # Run tests one more time
 ansible-playbook -i ansible/inventory.yaml ansible/perf.yaml
 mv /tmp/net_checker_reports/ ./net_checker_reports/02_bond_hash
