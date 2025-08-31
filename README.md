@@ -74,5 +74,5 @@ python3 generate_report.py
 ```
 
 # Example of reports
-<img alt="" src="docs/examples/reports/tcp_hostA_172.16.56.93.svg" width="50%" height="50%">
-<img alt="" src="docs/examples/reports/udp_hostA_172.16.56.93.svg" width="50%" height="50%">
+<img alt="" src="docs/examples/reports/tcp_hostA_10.12.0.9.svg" width="100%" height="100%">
+<img alt="" src="docs/examples/reports/udp_hostA_10.12.0.9.svg" width="100%" height="100%">
