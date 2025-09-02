@@ -72,3 +72,22 @@ iperf_tasks:
     command: iperf3 -t30 -P15 -u -b1G -l700
   - name: udp_p30_b1G_l700
     command: iperf3 -t30 -P30 -u -b1G -l700
+
+  - name: udp_p1_b2G
+    command: iperf3 -t30 -P1 -u -b2G
+  - name: udp_p15_b2G
+    command: iperf3 -t30 -P15 -u -b2G
+  - name: udp_p30_b2G
+    command: iperf3 -t30 -P30 -u -b2G
+  - name: udp_p1_b2G_l1400
+    command: iperf3 -t30 -P1 -u -b2G -l1400
+  - name: udp_p15_b2G_l1400
+    command: iperf3 -t30 -P15 -u -b2G -l1400
+  - name: udp_p30_b2G_l1400
+    command: iperf3 -t30 -P30 -u -b2G -l1400
+  - name: udp_p1_b2G_l700
+    command: iperf3 -t30 -P1 -u -b2G -l700
+  - name: udp_p15_b2G_l700
+    command: iperf3 -t30 -P15 -u -b2G -l700
+  - name: udp_p30_b2G_l700
+    command: iperf3 -t30 -P30 -u -b2G -l700
