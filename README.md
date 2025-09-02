@@ -72,7 +72,7 @@ mv /tmp/net_checker_reports/ ./net_checker_reports/02_bond_hash
 
 ## Create report graphs
 ```
-python3 generate_report.py
+python net-checker.py report
 ```
 
 # Example of reports
