@@ -25,7 +25,7 @@ jobs:
 
       - name: Format with black
         run: |
-          black --check --diff
+          black --check --diff .
 
       - name: Lint with flake8
         run: |
