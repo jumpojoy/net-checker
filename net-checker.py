@@ -63,11 +63,9 @@ def load_json_files(folder):
 def collect_scenario_data(net_data, source, target, scenarios):
     """Collect data from multiple folders, returning a dictionary with folder names as keys."""
     folder_data = {}
-    folders = []
     for scenario in scenarios:
         folder = os.path.join(net_data, scenario, source, "iperf", target)
         # Load data from each folder
-        folder_name = os.path.basename(folder)
         scenario_data = load_json_files(folder)
         folder_data[scenario] = scenario_data
 
