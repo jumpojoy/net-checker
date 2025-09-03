@@ -124,6 +124,7 @@ def plot_tcp_diagram(
     ax.legend(bbox_to_anchor=(1.05, 1), loc="upper left", borderaxespad=0.0)
 
     plt.tight_layout()
+    plt.grid()
     plt.savefig(output_file, format=format, bbox_inches="tight")
     plt.close()
     print(f"TCP bar diagram saved as '{output_file}'")
@@ -197,14 +198,15 @@ def plot_udp_diagram(
     ax.legend(bbox_to_anchor=(1.05, 1), loc="upper left", borderaxespad=0.0)
 
     plt.tight_layout()
+    plt.grid()
     plt.savefig(output_file, format=format, bbox_inches="tight")
     plt.close()
     print(f"UDP bar diagram saved as '{output_file}'")
 
 
-def main(format="svg"):
+def main(format="svg", reports_folder="./net_checker_reports"):
     # Specify the directories containing JSON files
-    net_data = "./net_checker_reports"
+    net_data = reports_folder
     out_dir = "./"
 
     # Create list of source, target scenarios
@@ -262,9 +264,10 @@ def cli():
 
 
 @cli.command()
+@click.option("--reports-folder", default="./net_checker_reports", help="Output format")
 @click.option("--format", default="svg", help="Output format")
-def report(format):
-    main(format=format)
+def report(format, reports_folder):
+    main(format=format, reports_folder=reports_folder)
 
 
 if __name__ == "__main__":
